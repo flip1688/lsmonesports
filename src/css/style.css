@@ -1,0 +1,250 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold leading-tight;
+  }
+  
+  h1 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  h4 {
+    @apply text-lg md:text-xl;
+  }
+  
+  h5 {
+    @apply text-base md:text-lg;
+  }
+  
+  h6 {
+    @apply text-sm md:text-base;
+  }
+  
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+  
+  a {
+    @apply transition-colors duration-200;
+  }
+  
+  img {
+    @apply max-w-full h-auto;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500;
+  }
+  
+  .btn-outline {
+    @apply btn border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-primary-500;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden;
+  }
+  
+  .card-hover {
+    @apply card hover:shadow-lg transition-shadow duration-200;
+  }
+  
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent;
+  }
+  
+  /* Navigation styles */
+  .nav-link {
+    @apply text-gray-700 hover:text-primary-600 transition-colors duration-200 font-medium;
+  }
+  
+  .nav-link.active {
+    @apply text-primary-600;
+  }
+  
+  /* Form styles */
+  .form-input {
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500;
+  }
+  
+  .form-textarea {
+    @apply form-input resize-y;
+  }
+  
+  .form-select {
+    @apply form-input pr-10 bg-white;
+  }
+  
+  /* WordPress specific styles */
+  .wp-block-image {
+    @apply mb-6;
+  }
+  
+  .wp-block-quote {
+    @apply border-l-4 border-primary-500 pl-4 italic text-gray-700 my-6;
+  }
+  
+  .wp-block-pullquote {
+    @apply text-center text-xl font-medium text-gray-800 my-8 p-6 border-t border-b border-gray-200;
+  }
+  
+  .wp-block-code {
+    @apply bg-gray-100 rounded-md p-4 font-mono text-sm overflow-x-auto;
+  }
+  
+  .wp-block-preformatted {
+    @apply wp-block-code;
+  }
+  
+  /* Comment styles */
+  .comment-list {
+    @apply space-y-6;
+  }
+  
+  .comment {
+    @apply bg-white rounded-lg p-6 shadow-sm;
+  }
+  
+  .comment-meta {
+    @apply flex items-center space-x-4 mb-4 text-sm text-gray-500;
+  }
+  
+  .comment-author {
+    @apply font-medium text-gray-900;
+  }
+  
+  .comment-content {
+    @apply prose prose-sm max-w-none;
+  }
+  
+  /* Widget styles */
+  .widget {
+    @apply bg-white rounded-lg shadow-md p-6 mb-6;
+  }
+  
+  .widget-title {
+    @apply text-xl font-semibold text-gray-900 mb-4;
+  }
+  
+  .widget ul {
+    @apply space-y-2;
+  }
+  
+  .widget li {
+    @apply border-b border-gray-100 pb-2 last:border-b-0;
+  }
+  
+  .widget a {
+    @apply text-gray-700 hover:text-primary-600 transition-colors;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .bg-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f1f5f9' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+  
+  .aspect-landscape {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 640px) {
+  .prose {
+    @apply text-sm;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    @apply text-black bg-white;
+  }
+  
+  a {
+    @apply text-black no-underline;
+  }
+  
+  .card, .widget {
+    @apply shadow-none border border-gray-300;
+  }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-auto {
+    @apply bg-gray-900 text-white;
+  }
+  
+  .dark-mode-auto .card {
+    @apply bg-gray-800 text-white;
+  }
+  
+  .dark-mode-auto .nav-link {
+    @apply text-gray-300 hover:text-white;
+  }
+}

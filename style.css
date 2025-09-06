@@ -1,0 +1,14 @@
+/*
+Theme Name: LSM Sports Theme
+Description: A modern WordPress theme built with TailwindCSS and PostCSS
+Version: 1.0.0
+Author: Your Name
+Text Domain: lsm-sports
+*/
+
+/* This file will be processed by PostCSS and TailwindCSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles will be added here */
