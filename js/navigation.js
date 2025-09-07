@@ -78,27 +78,82 @@
         const header = document.getElementById('masthead');
         
         if (header) {
-            let lastScrollTop = 0;
-            
             window.addEventListener('scroll', function() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 
-                if (scrollTop > 100) {
-                    header.classList.add('scrolled');
+                if (scrollTop > 50) {
+                    // Change background to blue when scrolled
+                    header.classList.add('bg-opacity-50', 'backdrop-blur-md', 'shadow-lg');
+                    header.classList.remove('bg-transparent');
+                    
+                    // Update text colors for better contrast on blue background
+                    const siteTitle = header.querySelector('.site-title a');
+                    const siteDescription = header.querySelector('.site-description');
+                    const navLinks = header.querySelectorAll('.main-navigation a');
+                    const mobileButton = header.querySelector('#mobile-menu-button');
+                    const mobileLinks = header.querySelectorAll('#mobile-menu a');
+                    
+                    if (siteTitle) {
+                        siteTitle.classList.add('text-white', 'hover:text-blue-200');
+                        siteTitle.classList.remove('text-gray-900', 'hover:text-blue-600');
+                    }
+                    
+                    if (siteDescription) {
+                        siteDescription.classList.add('text-blue-100');
+                        siteDescription.classList.remove('text-gray-600');
+                    }
+                    
+                    navLinks.forEach(function(link) {
+                        link.classList.add('hover:text-blue-200');
+                        link.classList.remove('hover:text-blue-600');
+                    });
+                    
+                    if (mobileButton) {
+                        mobileButton.classList.add('text-white', 'hover:text-blue-200', 'hover:bg-blue-700');
+                        mobileButton.classList.remove('text-gray-700', 'hover:text-blue-600', 'hover:bg-gray-100');
+                    }
+                    
+                    mobileLinks.forEach(function(link) {
+                        link.classList.add( 'hover:text-blue-200');
+                        link.classList.remove( 'hover:text-blue-600');
+                    });
                 } else {
-                    header.classList.remove('scrolled');
+                    // Restore original white background when at top
+                    header.classList.remove('bg-opacity-50', 'backdrop-blur-md', 'shadow-lg');
+                    header.classList.add('bg-transparent');
+                    
+                    // Restore original text colors
+                    const siteTitle = header.querySelector('.site-title a');
+                    const siteDescription = header.querySelector('.site-description');
+                    const navLinks = header.querySelectorAll('.main-navigation a');
+                    const mobileButton = header.querySelector('#mobile-menu-button');
+                    const mobileLinks = header.querySelectorAll('#mobile-menu a');
+                    
+                    if (siteTitle) {
+                        siteTitle.classList.remove( 'hover:text-blue-200');
+                        siteTitle.classList.add( 'hover:text-blue-600');
+                    }
+                    
+                    if (siteDescription) {
+                        siteDescription.classList.remove('text-blue-100');
+                        siteDescription.classList.add('text-gray-600');
+                    }
+                    
+                    navLinks.forEach(function(link) {
+                        link.classList.remove( 'hover:text-blue-200');
+                        link.classList.add( 'hover:text-blue-600');
+                    });
+                    
+                    if (mobileButton) {
+                        mobileButton.classList.remove('text-white', 'hover:text-blue-200', 'hover:bg-blue-700');
+                        mobileButton.classList.add('text-gray-700', 'hover:text-blue-600', 'hover:bg-gray-100');
+                    }
+                    
+                    mobileLinks.forEach(function(link) {
+                        link.classList.remove( 'hover:text-blue-200');
+                        link.classList.add('hover:text-blue-600');
+                    });
                 }
-                
-                // Hide/show header on scroll (optional)
-                if (scrollTop > lastScrollTop && scrollTop > 200) {
-                    // Scrolling down
-                    header.style.transform = 'translateY(-100%)';
-                } else {
-                    // Scrolling up
-                    header.style.transform = 'translateY(0)';
-                }
-                
-                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
             });
         }
     }

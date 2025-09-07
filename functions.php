@@ -187,6 +187,7 @@ function lsm_sports_body_classes($classes) {
     // Add TailwindCSS classes
     $classes[] = 'font-sans';
     $classes[] = 'antialiased';
+    // $classes[] = 'pt-24'; // Add top padding for fixed navbar
     
     // Adds a class of hfeed to non-singular pages.
     if (!is_singular()) {
@@ -206,9 +207,9 @@ add_filter('body_class', 'lsm_sports_body_classes');
  * Disable WordPress default styles that might conflict with TailwindCSS
  */
 function lsm_sports_dequeue_styles() {
-    wp_dequeue_style('wp-block-library');
-    wp_dequeue_style('wp-block-library-theme');
-    wp_dequeue_style('wc-block-style');
+    // wp_dequeue_style('wp-block-library');
+    // wp_dequeue_style('wp-block-library-theme');
+    // wp_dequeue_style('wc-block-style');   
 }
 add_action('wp_enqueue_scripts', 'lsm_sports_dequeue_styles', 100);
 
