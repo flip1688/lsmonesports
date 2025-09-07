@@ -179,20 +179,25 @@ function lsm_sports_excerpt_length($length) {
 }
 add_filter('excerpt_length', 'lsm_sports_excerpt_length', 999);
 
-/**
- * Custom excerpt more
- */
-function lsm_sports_excerpt_more($more) {
-    return '...';
-}
-add_filter('excerpt_more', 'lsm_sports_excerpt_more');
 
 /**
- * Add TailwindCSS classes to body
+ * Add custom classes to body
  */
 function lsm_sports_body_classes($classes) {
+    // Add TailwindCSS classes
     $classes[] = 'font-sans';
     $classes[] = 'antialiased';
+    
+    // Adds a class of hfeed to non-singular pages.
+    if (!is_singular()) {
+        $classes[] = 'hfeed';
+    }
+
+    // Adds a class of no-sidebar when there is no sidebar present.
+    if (!is_active_sidebar('sidebar-1')) {
+        $classes[] = 'no-sidebar';
+    }
+    
     return $classes;
 }
 add_filter('body_class', 'lsm_sports_body_classes');
