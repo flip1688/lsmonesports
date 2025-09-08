@@ -269,3 +269,279 @@ function lsm_sports_add_editor_styles() {
     add_editor_style('dist/css/editor-style.css');
 }
 add_action('admin_init', 'lsm_sports_add_editor_styles');
+
+/**
+ * Register Custom Post Types
+ */
+function lsm_sports_register_custom_post_types() {
+    // Register Promotion Post Type
+    $promotion_labels = array(
+        'name'                  => _x('Promotions', 'Post Type General Name', 'lsm-sports'),
+        'singular_name'         => _x('Promotion', 'Post Type Singular Name', 'lsm-sports'),
+        'menu_name'             => __('Promotions', 'lsm-sports'),
+        'name_admin_bar'        => __('Promotion', 'lsm-sports'),
+        'archives'              => __('Promotion Archives', 'lsm-sports'),
+        'attributes'            => __('Promotion Attributes', 'lsm-sports'),
+        'parent_item_colon'     => __('Parent Promotion:', 'lsm-sports'),
+        'all_items'             => __('All Promotions', 'lsm-sports'),
+        'add_new_item'          => __('Add New Promotion', 'lsm-sports'),
+        'add_new'               => __('Add New', 'lsm-sports'),
+        'new_item'              => __('New Promotion', 'lsm-sports'),
+        'edit_item'             => __('Edit Promotion', 'lsm-sports'),
+        'update_item'           => __('Update Promotion', 'lsm-sports'),
+        'view_item'             => __('View Promotion', 'lsm-sports'),
+        'view_items'            => __('View Promotions', 'lsm-sports'),
+        'search_items'          => __('Search Promotion', 'lsm-sports'),
+        'not_found'             => __('Not found', 'lsm-sports'),
+        'not_found_in_trash'    => __('Not found in Trash', 'lsm-sports'),
+        'featured_image'        => __('Featured Image', 'lsm-sports'),
+        'set_featured_image'    => __('Set featured image', 'lsm-sports'),
+        'remove_featured_image' => __('Remove featured image', 'lsm-sports'),
+        'use_featured_image'    => __('Use as featured image', 'lsm-sports'),
+        'insert_into_item'      => __('Insert into promotion', 'lsm-sports'),
+        'uploaded_to_this_item' => __('Uploaded to this promotion', 'lsm-sports'),
+        'items_list'            => __('Promotions list', 'lsm-sports'),
+        'items_list_navigation' => __('Promotions list navigation', 'lsm-sports'),
+        'filter_items_list'     => __('Filter promotions list', 'lsm-sports'),
+    );
+
+    $promotion_args = array(
+        'label'                 => __('Promotion', 'lsm-sports'),
+        'description'           => __('Sports promotions and special offers', 'lsm-sports'),
+        'labels'                => $promotion_labels,
+        'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'revisions'),
+        'taxonomies'            => array('promotion_category', 'promotion_tag'),
+        'hierarchical'          => false,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 5,
+        'menu_icon'             => 'dashicons-megaphone',
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => true,
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'post',
+        'show_in_rest'          => true,
+        'rewrite'               => array('slug' => 'promotions'),
+    );
+
+    register_post_type('promotion', $promotion_args);
+
+    // Register Article Post Type
+    $article_labels = array(
+        'name'                  => _x('Articles', 'Post Type General Name', 'lsm-sports'),
+        'singular_name'         => _x('Article', 'Post Type Singular Name', 'lsm-sports'),
+        'menu_name'             => __('Articles', 'lsm-sports'),
+        'name_admin_bar'        => __('Article', 'lsm-sports'),
+        'archives'              => __('Article Archives', 'lsm-sports'),
+        'attributes'            => __('Article Attributes', 'lsm-sports'),
+        'parent_item_colon'     => __('Parent Article:', 'lsm-sports'),
+        'all_items'             => __('All Articles', 'lsm-sports'),
+        'add_new_item'          => __('Add New Article', 'lsm-sports'),
+        'add_new'               => __('Add New', 'lsm-sports'),
+        'new_item'              => __('New Article', 'lsm-sports'),
+        'edit_item'             => __('Edit Article', 'lsm-sports'),
+        'update_item'           => __('Update Article', 'lsm-sports'),
+        'view_item'             => __('View Article', 'lsm-sports'),
+        'view_items'            => __('View Articles', 'lsm-sports'),
+        'search_items'          => __('Search Article', 'lsm-sports'),
+        'not_found'             => __('Not found', 'lsm-sports'),
+        'not_found_in_trash'    => __('Not found in Trash', 'lsm-sports'),
+        'featured_image'        => __('Featured Image', 'lsm-sports'),
+        'set_featured_image'    => __('Set featured image', 'lsm-sports'),
+        'remove_featured_image' => __('Remove featured image', 'lsm-sports'),
+        'use_featured_image'    => __('Use as featured image', 'lsm-sports'),
+        'insert_into_item'      => __('Insert into article', 'lsm-sports'),
+        'uploaded_to_this_item' => __('Uploaded to this article', 'lsm-sports'),
+        'items_list'            => __('Articles list', 'lsm-sports'),
+        'items_list_navigation' => __('Articles list navigation', 'lsm-sports'),
+        'filter_items_list'     => __('Filter articles list', 'lsm-sports'),
+    );
+
+    $article_args = array(
+        'label'                 => __('Article', 'lsm-sports'),
+        'description'           => __('Sports articles and news content', 'lsm-sports'),
+        'labels'                => $article_labels,
+        'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'revisions', 'author', 'comments'),
+        'taxonomies'            => array('article_category', 'article_tag'),
+        'hierarchical'          => false,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 6,
+        'menu_icon'             => 'dashicons-media-document',
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => true,
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'post',
+        'show_in_rest'          => true,
+        'rewrite'               => array('slug' => 'articles'),
+    );
+
+    register_post_type('article', $article_args);
+}
+add_action('init', 'lsm_sports_register_custom_post_types', 0);
+
+/**
+ * Register Custom Taxonomies for Custom Post Types
+ */
+function lsm_sports_register_custom_taxonomies() {
+    // Register Promotion Categories
+    $promotion_cat_labels = array(
+        'name'                       => _x('Promotion Categories', 'Taxonomy General Name', 'lsm-sports'),
+        'singular_name'              => _x('Promotion Category', 'Taxonomy Singular Name', 'lsm-sports'),
+        'menu_name'                  => __('Categories', 'lsm-sports'),
+        'all_items'                  => __('All Categories', 'lsm-sports'),
+        'parent_item'                => __('Parent Category', 'lsm-sports'),
+        'parent_item_colon'          => __('Parent Category:', 'lsm-sports'),
+        'new_item_name'              => __('New Category Name', 'lsm-sports'),
+        'add_new_item'               => __('Add New Category', 'lsm-sports'),
+        'edit_item'                  => __('Edit Category', 'lsm-sports'),
+        'update_item'                => __('Update Category', 'lsm-sports'),
+        'view_item'                  => __('View Category', 'lsm-sports'),
+        'separate_items_with_commas' => __('Separate categories with commas', 'lsm-sports'),
+        'add_or_remove_items'        => __('Add or remove categories', 'lsm-sports'),
+        'choose_from_most_used'      => __('Choose from the most used', 'lsm-sports'),
+        'popular_items'              => __('Popular Categories', 'lsm-sports'),
+        'search_items'               => __('Search Categories', 'lsm-sports'),
+        'not_found'                  => __('Not Found', 'lsm-sports'),
+        'no_terms'                   => __('No categories', 'lsm-sports'),
+        'items_list'                 => __('Categories list', 'lsm-sports'),
+        'items_list_navigation'      => __('Categories list navigation', 'lsm-sports'),
+    );
+
+    $promotion_cat_args = array(
+        'labels'                     => $promotion_cat_labels,
+        'hierarchical'               => true,
+        'public'                     => true,
+        'show_ui'                    => true,
+        'show_admin_column'          => true,
+        'show_in_nav_menus'          => true,
+        'show_tagcloud'              => true,
+        'show_in_rest'               => true,
+        'rewrite'                    => array('slug' => 'promotion-category'),
+    );
+
+    register_taxonomy('promotion_category', array('promotion'), $promotion_cat_args);
+
+    // Register Promotion Tags
+    $promotion_tag_labels = array(
+        'name'                       => _x('Promotion Tags', 'Taxonomy General Name', 'lsm-sports'),
+        'singular_name'              => _x('Promotion Tag', 'Taxonomy Singular Name', 'lsm-sports'),
+        'menu_name'                  => __('Tags', 'lsm-sports'),
+        'all_items'                  => __('All Tags', 'lsm-sports'),
+        'parent_item'                => __('Parent Tag', 'lsm-sports'),
+        'parent_item_colon'          => __('Parent Tag:', 'lsm-sports'),
+        'new_item_name'              => __('New Tag Name', 'lsm-sports'),
+        'add_new_item'               => __('Add New Tag', 'lsm-sports'),
+        'edit_item'                  => __('Edit Tag', 'lsm-sports'),
+        'update_item'                => __('Update Tag', 'lsm-sports'),
+        'view_item'                  => __('View Tag', 'lsm-sports'),
+        'separate_items_with_commas' => __('Separate tags with commas', 'lsm-sports'),
+        'add_or_remove_items'        => __('Add or remove tags', 'lsm-sports'),
+        'choose_from_most_used'      => __('Choose from the most used', 'lsm-sports'),
+        'popular_items'              => __('Popular Tags', 'lsm-sports'),
+        'search_items'               => __('Search Tags', 'lsm-sports'),
+        'not_found'                  => __('Not Found', 'lsm-sports'),
+        'no_terms'                   => __('No tags', 'lsm-sports'),
+        'items_list'                 => __('Tags list', 'lsm-sports'),
+        'items_list_navigation'      => __('Tags list navigation', 'lsm-sports'),
+    );
+
+    $promotion_tag_args = array(
+        'labels'                     => $promotion_tag_labels,
+        'hierarchical'               => false,
+        'public'                     => true,
+        'show_ui'                    => true,
+        'show_admin_column'          => true,
+        'show_in_nav_menus'          => true,
+        'show_tagcloud'              => true,
+        'show_in_rest'               => true,
+        'rewrite'                    => array('slug' => 'promotion-tag'),
+    );
+
+    register_taxonomy('promotion_tag', array('promotion'), $promotion_tag_args);
+
+    // Register Article Categories
+    $article_cat_labels = array(
+        'name'                       => _x('Article Categories', 'Taxonomy General Name', 'lsm-sports'),
+        'singular_name'              => _x('Article Category', 'Taxonomy Singular Name', 'lsm-sports'),
+        'menu_name'                  => __('Categories', 'lsm-sports'),
+        'all_items'                  => __('All Categories', 'lsm-sports'),
+        'parent_item'                => __('Parent Category', 'lsm-sports'),
+        'parent_item_colon'          => __('Parent Category:', 'lsm-sports'),
+        'new_item_name'              => __('New Category Name', 'lsm-sports'),
+        'add_new_item'               => __('Add New Category', 'lsm-sports'),
+        'edit_item'                  => __('Edit Category', 'lsm-sports'),
+        'update_item'                => __('Update Category', 'lsm-sports'),
+        'view_item'                  => __('View Category', 'lsm-sports'),
+        'separate_items_with_commas' => __('Separate categories with commas', 'lsm-sports'),
+        'add_or_remove_items'        => __('Add or remove categories', 'lsm-sports'),
+        'choose_from_most_used'      => __('Choose from the most used', 'lsm-sports'),
+        'popular_items'              => __('Popular Categories', 'lsm-sports'),
+        'search_items'               => __('Search Categories', 'lsm-sports'),
+        'not_found'                  => __('Not Found', 'lsm-sports'),
+        'no_terms'                   => __('No categories', 'lsm-sports'),
+        'items_list'                 => __('Categories list', 'lsm-sports'),
+        'items_list_navigation'      => __('Categories list navigation', 'lsm-sports'),
+    );
+
+    $article_cat_args = array(
+        'labels'                     => $article_cat_labels,
+        'hierarchical'               => true,
+        'public'                     => true,
+        'show_ui'                    => true,
+        'show_admin_column'          => true,
+        'show_in_nav_menus'          => true,
+        'show_tagcloud'              => true,
+        'show_in_rest'               => true,
+        'rewrite'                    => array('slug' => 'article-category'),
+    );
+
+    register_taxonomy('article_category', array('article'), $article_cat_args);
+
+    // Register Article Tags
+    $article_tag_labels = array(
+        'name'                       => _x('Article Tags', 'Taxonomy General Name', 'lsm-sports'),
+        'singular_name'              => _x('Article Tag', 'Taxonomy Singular Name', 'lsm-sports'),
+        'menu_name'                  => __('Tags', 'lsm-sports'),
+        'all_items'                  => __('All Tags', 'lsm-sports'),
+        'parent_item'                => __('Parent Tag', 'lsm-sports'),
+        'parent_item_colon'          => __('Parent Tag:', 'lsm-sports'),
+        'new_item_name'              => __('New Tag Name', 'lsm-sports'),
+        'add_new_item'               => __('Add New Tag', 'lsm-sports'),
+        'edit_item'                  => __('Edit Tag', 'lsm-sports'),
+        'update_item'                => __('Update Tag', 'lsm-sports'),
+        'view_item'                  => __('View Tag', 'lsm-sports'),
+        'separate_items_with_commas' => __('Separate tags with commas', 'lsm-sports'),
+        'add_or_remove_items'        => __('Add or remove tags', 'lsm-sports'),
+        'choose_from_most_used'      => __('Choose from the most used', 'lsm-sports'),
+        'popular_items'              => __('Popular Tags', 'lsm-sports'),
+        'search_items'               => __('Search Tags', 'lsm-sports'),
+        'not_found'                  => __('Not Found', 'lsm-sports'),
+        'no_terms'                   => __('No tags', 'lsm-sports'),
+        'items_list'                 => __('Tags list', 'lsm-sports'),
+        'items_list_navigation'      => __('Tags list navigation', 'lsm-sports'),
+    );
+
+    $article_tag_args = array(
+        'labels'                     => $article_tag_labels,
+        'hierarchical'               => false,
+        'public'                     => true,
+        'show_ui'                    => true,
+        'show_admin_column'          => true,
+        'show_in_nav_menus'          => true,
+        'show_tagcloud'              => true,
+        'show_in_rest'               => true,
+        'rewrite'                    => array('slug' => 'article-tag'),
+    );
+
+    register_taxonomy('article_tag', array('article'), $article_tag_args);
+}
+add_action('init', 'lsm_sports_register_custom_taxonomies', 0);
