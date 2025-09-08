@@ -17,11 +17,11 @@ get_header();
                 
                 <?php if (has_post_thumbnail()) : ?>
                     <div class="featured-image mb-8">
-                        <?php the_post_thumbnail('lsm-hero', array('class' => 'w-full h-96 object-cover rounded-t-lg')); ?>
+                        <?php the_post_thumbnail('lsm-hero', array('class' => 'w-full min-h-[24rem] h-fit object-cover rounded-t-lg')); ?>
                     </div>
                 <?php else : ?>
                     <div class="featured-image mb-8">
-                        <img src="<?php echo get_template_directory_uri(); ?>/src/img/promotion-heading.png" alt="<?php the_title_attribute(); ?>" class="w-full h-96 object-cover rounded-t-lg">
+                        <img src="<?php echo get_template_directory_uri(); ?>/src/img/promotion-heading.png" alt="<?php the_title_attribute(); ?>" class="w-full min-h-[24rem] h-fit object-cover rounded-t-lg">
                     </div>
                 <?php endif; ?>
                 

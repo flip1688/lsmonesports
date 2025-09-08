@@ -256,7 +256,12 @@
 .wp-block-cover.fit-cover {
   @apply h-fit max-h-fit min-h-0;
 }
-
+.wp-block-cover.right-text {
+  @apply justify-end text-right h-fit max-h-fit min-h-0;
+}
+.wp-block-cover.right-text .wp-block-cover__inner-container {
+  @apply m-auto lg:ml-auto lg:mr-0;
+}
 .wp-block-cover.fit-cover .wp-block-cover__inner-container {
   @apply lg:max-w-screen-lg m-auto;
 }
@@ -264,7 +269,9 @@
 .wp-block-cover__inner-container {
   @apply lg:max-w-screen-sm lg:ml-0 mr-auto;
 }
-
+.wp-block-cover.center-cover .wp-block-cover__inner-container {
+  @apply m-auto w-full justify-center text-center items-center;
+}
 .wp-block-button.is-style-lsmonesports-button .wp-block-button__link.wp-element-button{
   @apply px-16 bg-gradient-to-b from-[#0185FB] to-[#2A2C7A] text-white font-semibold py-3 rounded-md hover:bg-primary-700 transition-colors duration-200;
 }
@@ -316,4 +323,10 @@ h2 {
 
 .wp-block-group.is-grid-3.is-layout-grid.center-grid {
   @apply justify-center items-center content-center;
+}
+.wp-block-columns.column-size-2 .wp-block-column {
+  @apply bg-none mx-3 !important;
+}
+.wp-block-media-text.full-width {
+  @apply w-full;
 }
