@@ -8,24 +8,36 @@
 get_header();
 ?>
 
-<main id="primary" class="site-main">
-    <div class="container mx-auto px-4 py-8">
+<main id="primary" class="site-main min-h-screen">
+    <div class="w-full mx-auto">
         
         <?php if (have_posts()) : ?>
             
-            <header class="page-header mb-8">
-                <h1 class="page-title text-3xl font-bold text-gray-900 mb-4">
-                    <?php post_type_archive_title(); ?>
-                </h1>
-                <?php
-                $archive_description = get_the_archive_description();
-                if ($archive_description) :
-                ?>
-                    <div class="archive-description text-gray-600">
-                        <?php echo wp_kses_post(wpautop($archive_description)); ?>
+            <div class="page-header w-full">
+                <div class="relative min-h-fit text-center bg-fixed"  style="background-image: url('<?php echo get_template_directory_uri(); ?>/src/img/promotion-heading.png'); background-size: 100% auto;">
+                    <div class="max-w-7xl mx-auto pt-24 pb-16">
+                        <div class="flex justify-center items-center md:justify-start md:items-start mb-8">
+                            <div class="flex flex-col items-center justify-center">
+                                <h1 class="page-title text-3xl font-bold md:text-4xl text-white max-w-2xl" >
+                                โปรโมชั่น ONE-All Sports <br>
+แจกโบนัสและสิทธิพิเศษทุกวัน
+                                </h1>
+                                <p class="align-center text-white mt-4 max-w-2xl">
+                                    พบกับโปรโมชั่นสุดคุ้มจาก ONE-All Sports เว็บพนันกีฬาออนไลน์ที่พร้อมมอบโบนัสและสิทธิพิเศษให้สมาชิกทุกท่าน ไม่ว่าจะเป็นผู้เล่นใหม่หรือผู้เล่นประจำ รับรองว่าคุ้มค่าและใช้ได้จริง ครอบคลุมทั้งโบนัสต้อนรับ โปรโมชั่นฝากเงิน และกิจกรรมพิเศษประจำเดือน
+                                </p>
+                                <div class="flex-row items-center justify-stretch mt-6">
+                                    <a href="#promotion-list" class="inline-block px-6 py-3 bg-gradient-to-b from-[#FFC900] to-[#F89939] text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                        สมัครสมาชิก
+                                    </a>
+                                     <a href="#promotion-list" class="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                        เข้าสู่ระบบ
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                <?php endif; ?>
-            </header><!-- .page-header -->
+                </div>
+            </div><!-- .page-header -->
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
@@ -123,5 +135,5 @@ get_header();
 </main><!-- #main -->
 
 <?php
-get_sidebar();
+// get_sidebar();
 get_footer();

@@ -545,3 +545,42 @@ function lsm_sports_register_custom_taxonomies() {
     register_taxonomy('article_tag', array('article'), $article_tag_args);
 }
 add_action('init', 'lsm_sports_register_custom_taxonomies', 0);
+
+/**
+ * Flush rewrite rules on theme activation
+ */
+function lsm_sports_flush_rewrite_rules() {
+    // First, we "add" the custom post type via the above written function.
+    // Note: "add" is written with quotes because we are only registering the post type
+    lsm_sports_register_custom_post_types();
+    lsm_sports_register_custom_taxonomies();
+    
+    // ATTENTION: This is *only* done during plugin activation hook in this example!
+    // You should *NEVER EVER* do this on every page load!!
+    flush_rewrite_rules();
+}
+
+// Hook into the 'after_switch_theme' action
+add_action('after_switch_theme', 'lsm_sports_flush_rewrite_rules');
+
+/**
+ * Flush rewrite rules on theme deactivation
+ */
+function lsm_sports_deactivation() {
+    flush_rewrite_rules();
+}
+add_action('switch_theme', 'lsm_sports_deactivation');
+
+/**
+ * Temporary function to flush rewrite rules - call this once after adding custom post types
+ * This can be removed after the first page load
+ */
+function lsm_sports_flush_rewrite_rules_once() {
+    if (get_option('lsm_sports_flush_rewrite_rules_flag') != 'done') {
+        lsm_sports_register_custom_post_types();
+        lsm_sports_register_custom_taxonomies();
+        flush_rewrite_rules();
+        update_option('lsm_sports_flush_rewrite_rules_flag', 'done');
+    }
+}
+add_action('init', 'lsm_sports_flush_rewrite_rules_once', 999);
