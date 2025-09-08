@@ -102,6 +102,55 @@ function lsm_sports_widgets_init() {
             'after_title'   => '</h2>',
         )
     );
+
+    // Register Footer Widget Areas
+    register_sidebar(
+        array(
+            'name'          => esc_html__('Footer Widget Area 1', 'lsm-sports'),
+            'id'            => 'footer-1',
+            'description'   => esc_html__('Add widgets here to appear in the first footer column.', 'lsm-sports'),
+            'before_widget' => '<div id="%1$s" class="widget footer-widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3 class="widget-title text-lg font-semibold text-white mb-4">',
+            'after_title'   => '</h3>',
+        )
+    );
+
+    register_sidebar(
+        array(
+            'name'          => esc_html__('Footer Widget Area 2', 'lsm-sports'),
+            'id'            => 'footer-2',
+            'description'   => esc_html__('Add widgets here to appear in the second footer column.', 'lsm-sports'),
+            'before_widget' => '<div id="%1$s" class="widget footer-widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3 class="widget-title text-lg font-semibold text-white mb-4">',
+            'after_title'   => '</h3>',
+        )
+    );
+
+    register_sidebar(
+        array(
+            'name'          => esc_html__('Footer Widget Area 3', 'lsm-sports'),
+            'id'            => 'footer-3',
+            'description'   => esc_html__('Add widgets here to appear in the third footer column.', 'lsm-sports'),
+            'before_widget' => '<div id="%1$s" class="widget footer-widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3 class="widget-title text-lg font-semibold text-white mb-4">',
+            'after_title'   => '</h3>',
+        )
+    );
+
+    register_sidebar(
+        array(
+            'name'          => esc_html__('Footer Widget Area 4', 'lsm-sports'),
+            'id'            => 'footer-4',
+            'description'   => esc_html__('Add widgets here to appear in the fourth footer column.', 'lsm-sports'),
+            'before_widget' => '<div id="%1$s" class="widget footer-widget %2$s">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<h3 class="widget-title text-lg font-semibold text-white mb-4">',
+            'after_title'   => '</h3>',
+        )
+    );
 }
 add_action('widgets_init', 'lsm_sports_widgets_init');
 
