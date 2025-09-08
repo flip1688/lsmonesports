@@ -8,27 +8,40 @@
 get_header();
 ?>
 
-<main id="primary" class="site-main">
-    <div class="container mx-auto px-4 py-8">
-        
+<main id="primary" class="site-main min-h-screen">
+    <div class="w-full mx-auto ">
+        <div class="page-header w-full">
+            <div class="relative min-h-fit text-center bg-fixed"  style="background-image: url('<?php echo get_template_directory_uri(); ?>/src/img/article-heading.png'); background-size: 100% auto;">
+                <div class="max-w-7xl mx-auto pt-24 pb-16">
+                    <div class="flex justify-center items-center md:justify-start md:items-start mb-8">
+                        <div class="flex flex-col items-center justify-center">
+                            <h1 class="page-title text-3xl font-bold md:text-4xl text-white max-w-2xl" >
+                                บทความ ONE-All Sports เทคนิคเดิมพัน <br>
+กีฬาออนไลน์ & คาสิโนออนไลน์
+                            </h1>
+                            <p class="align-center text-white mt-4 max-w-2xl">
+                                    ศูนย์รวมบทความคุณภาพ ที่คัดสรรมาเพื่อผู้เล่น ทั้ง เทคนิคการเดิมพันกีฬาออนไลน์ วิธีสมัคร โปรโมชั่นล่าสุด รีวิวเกมยอดนิยม และเคล็ดลับในการเล่นอย่างมืออาชีพ
+                            </p>
+                            <div class="space-y-12"></div>
+                            <div class="flex-row items-center justify-stretch mt-6">
+                                <a href="#promotion-list" class="inline-block px-6 py-3 bg-gradient-to-b from-[#FFC900] to-[#F89939] text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                        สมัครสมาชิก
+                                </a>
+                                <a href="#promotion-list" class="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                        เข้าสู่ระบบ
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .page-header -->
+        <div class="bg-gradient-to-br from-[#A5D4FF] to-50% to-white/40 bg-opacity-25">
         <?php if (have_posts()) : ?>
             
-            <header class="page-header mb-8">
-                <h1 class="page-title text-3xl font-bold text-gray-900 mb-4">
-                    <?php post_type_archive_title(); ?>
-                </h1>
-                <?php
-                $archive_description = get_the_archive_description();
-                if ($archive_description) :
-                ?>
-                    <div class="archive-description text-gray-600">
-                        <?php echo wp_kses_post(wpautop($archive_description)); ?>
-                    </div>
-                <?php endif; ?>
-            </header><!-- .page-header -->
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto p-6" id="article-list">
+
                 <?php
                 /* Start the Loop */
                 while (have_posts()) :
@@ -139,7 +152,7 @@ get_header();
 
         <?php else : ?>
 
-            <section class="no-results not-found">
+            <section class="no-results not-found max-w-7xl mx-auto pt-40">
                 <header class="page-header">
                     <h1 class="page-title text-2xl font-bold text-gray-900 mb-4">
                         <?php esc_html_e('Nothing here', 'lsm-sports'); ?>
@@ -153,10 +166,10 @@ get_header();
             </section><!-- .no-results -->
 
         <?php endif; ?>
-        
+        </div>
     </div><!-- .container -->
 </main><!-- #main -->
 
 <?php
-get_sidebar();
+// get_sidebar();
 get_footer();
