@@ -13,15 +13,15 @@ get_header();
         
         <?php while (have_posts()) : the_post(); ?>
             
-            <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white rounded-lg shadow-lg overflow-hidden'); ?>>
+            <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white shadow-lg overflow-hidden'); ?>>
                 
                 <?php if (has_post_thumbnail()) : ?>
                     <div class="featured-image mb-8">
-                        <?php the_post_thumbnail('lsm-hero', array('class' => 'w-full h-96 object-cover rounded-t-lg')); ?>
+                        <?php the_post_thumbnail('lsm-hero', array('class' => 'w-full h-fit object-cover')); ?>
                     </div>
                 <?php else : ?>
                     <div class="featured-image mb-8">
-                        <img src="<?php echo get_template_directory_uri(); ?>/src/img/article-heading.png" alt="<?php the_title_attribute(); ?>" class="w-full h-96 object-cover rounded-t-lg">
+                        <img src="<?php echo get_template_directory_uri(); ?>/src/img/article-heading.png" alt="<?php the_title_attribute(); ?>" class="w-full h-fit object-cover rounded-t-lg">
                     </div>
                 <?php endif; ?>
                 

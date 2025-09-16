@@ -297,7 +297,7 @@ h2 {
   @apply text-2xl md:text-4xl;
 }
 .wp-block-column {
-  @apply bg-gradient-to-br from-[#A5D4FF] to-50% to-white/40 bg-opacity-25;
+  @apply bg-gradient-to-br from-[#A5D4FF] to-50% to-white/40 bg-opacity-25 py-6;
 }
 .wp-block-column > * {
   @apply max-w-screen-xl mx-auto;
@@ -329,4 +329,12 @@ h2 {
 }
 .wp-block-media-text.full-width {
   @apply w-full;
+}
+
+.wp-block-columns > * {
+  @apply px-6 lg:px-12;
+}
+
+.wp-block-buttons .is-style-lsmonesports-button {
+  @apply flex-auto lg:flex-none;
 }

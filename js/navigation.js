@@ -9,7 +9,7 @@
     function initMobileMenu() {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+        const header = document.getElementById('masthead');
         if (mobileMenuButton && mobileMenu) {
             mobileMenuButton.addEventListener('click', function() {
                 const isHidden = mobileMenu.classList.contains('hidden');
@@ -17,9 +17,11 @@
                 if (isHidden) {
                     mobileMenu.classList.remove('hidden');
                     mobileMenu.classList.add('animate-slide-down');
+                    header.classList.add('bg-opacity-50', 'backdrop-blur-md', 'shadow-lg');
                     mobileMenuButton.setAttribute('aria-expanded', 'true');
                 } else {
                     mobileMenu.classList.add('hidden');
+                    header.classList.remove('bg-opacity-50', 'backdrop-blur-md', 'shadow-lg');
                     mobileMenu.classList.remove('animate-slide-down');
                     mobileMenuButton.setAttribute('aria-expanded', 'false');
                 }
@@ -272,7 +274,7 @@
     function initBackToTop() {
         const backToTopButton = document.createElement('button');
         backToTopButton.innerHTML = '↑';
-        backToTopButton.className = 'fixed bottom-6 right-6 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible z-50';
+        backToTopButton.className = 'fixed bottom-16 right-6 bg-primary-600 text-white p-4 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 opacity-0 invisible z-50';
         backToTopButton.setAttribute('aria-label', 'Back to top');
         
         document.body.appendChild(backToTopButton);

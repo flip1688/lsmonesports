@@ -186,6 +186,17 @@ function lsm_sports_scripts() {
 add_action('wp_enqueue_scripts', 'lsm_sports_scripts');
 
 /**
+ * Add favicon to the site
+ */
+function lsm_sports_add_favicon() {
+    $favicon_url = get_template_directory_uri() . '/src/img/One_All_Sports_Logo_fav icon.png';
+    echo '<link rel="icon" type="image/png" href="' . esc_url($favicon_url) . '">' . "\n";
+    echo '<link rel="shortcut icon" type="image/png" href="' . esc_url($favicon_url) . '">' . "\n";
+    echo '<link rel="apple-touch-icon" href="' . esc_url($favicon_url) . '">' . "\n";
+}
+add_action('wp_head', 'lsm_sports_add_favicon');
+
+/**
  * Add custom classes to navigation menu links
  */
 function lsm_sports_nav_menu_link_attributes($atts, $item, $args) {

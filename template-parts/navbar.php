@@ -1,7 +1,7 @@
 <header id="masthead" class="site-header bg-none bg-opacity-50 backdrop-blur-md shadow-lg fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300">
     <div class="container mx-auto px-4 py-6">
         <div class="flex justify-between items-center">
-            <div class="site-branding">
+            <div class="site-branding hidden lg:block">
                 <?php if (has_custom_logo()) : ?>
                     <?php the_custom_logo(); ?>
                 <?php else : ?>
@@ -19,7 +19,7 @@
                 <?php endif; ?>
             </div>
 
-            <nav id="site-navigation" class="main-navigation hidden md:block">
+            <nav id="site-navigation" class="main-navigation hidden lg:block">
                 <div class="flex space-x-6 items-center">
                 <?php
                 wp_nav_menu(array(
@@ -39,7 +39,7 @@
             </nav>
 
             <!-- Mobile menu button -->
-            <button class="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100" id="mobile-menu-button">
+            <button class="lg:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100" id="mobile-menu-button">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Mobile menu -->
-        <nav id="mobile-menu" class="md:hidden mt-4 hidden">
+        <nav id="mobile-menu" class="lg:hidden mt-4 hidden">
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'menu-1',
