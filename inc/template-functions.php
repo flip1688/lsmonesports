@@ -116,20 +116,20 @@ add_filter('get_search_form', 'lsm_sports_search_form');
 /**
  * Modify excerpt more link
  */
-function lsm_sports_excerpt_more($link) {
-    if (is_admin()) {
-        return $link;
-    }
+// function lsm_sports_excerpt_more($link) {
+//     if (is_admin()) {
+//         return $link;
+//     }
 
-    $link = sprintf(
-        '<p class="link-more mt-4"><a href="%1$s" class="more-link btn-outline">%2$s</a></p>',
-        esc_url(get_permalink(get_the_ID())),
-        /* translators: %s: Name of current post */
-        sprintf(__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'lsm-sports'), get_the_title(get_the_ID()))
-    );
-    return ' &hellip; ' . $link;
-}
-add_filter('excerpt_more', 'lsm_sports_excerpt_more');
+//     $link = sprintf(
+//         '<p class="link-more mt-4"><a href="%1$s" class="more-link btn-outline">%2$s</a></p>',
+//         esc_url(get_permalink(get_the_ID())),
+//         /* translators: %s: Name of current post */
+//         sprintf(__('Continue reading<span class="screen-reader-text"> "%s"</span>', 'lsm-sports'), get_the_title(get_the_ID()))
+//     );
+//     return ' &hellip; ' . $link;
+// }
+// add_filter('excerpt_more', 'lsm_sports_excerpt_more');
 
 /**
  * Add custom post navigation

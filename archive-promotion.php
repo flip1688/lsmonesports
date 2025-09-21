@@ -91,7 +91,7 @@ get_header();
                                 
                                 <footer class="entry-footer">
                                     <a href="<?php the_permalink(); ?>" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
-                                        <?php esc_html_e('Read More', 'lsm-sports'); ?>
+                                        <?php esc_html_e('ดูโปรโมชั่น', 'lsm-sports'); ?>
                                         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                         </svg>

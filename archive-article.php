@@ -103,36 +103,16 @@ get_header();
                             </header><!-- .entry-header -->
 
                             <div class="entry-summary text-gray-600 mb-6 leading-relaxed">
-                                <?php the_excerpt(); ?>
+                                <?php echo get_the_excerpt(); ?>
                             </div><!-- .entry-summary -->
                             
                             <footer class="entry-footer flex justify-between items-center">
                                 <a href="<?php the_permalink(); ?>" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
-                                    <?php esc_html_e('Read Full Article', 'lsm-sports'); ?>
+                                    <?php esc_html_e('อ่านบทความ', 'lsm-sports'); ?>
                                     <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>
                                 </a>
-                                
-                                <?php if (comments_open() || get_comments_number()) : ?>
-                                    <div class="comments-link text-sm text-gray-500">
-                                        <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                                        </svg>
-                                        <a href="<?php the_permalink(); ?>#comments" class="hover:text-blue-600">
-                                            <?php
-                                            $comments_number = get_comments_number();
-                                            if ($comments_number == 0) {
-                                                esc_html_e('No Comments', 'lsm-sports');
-                                            } elseif ($comments_number == 1) {
-                                                esc_html_e('1 Comment', 'lsm-sports');
-                                            } else {
-                                                printf(esc_html__('%s Comments', 'lsm-sports'), $comments_number);
-                                            }
-                                            ?>
-                                        </a>
-                                    </div>
-                                <?php endif; ?>
                             </footer><!-- .entry-footer -->
                         </div>
                         
