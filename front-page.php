@@ -58,4 +58,9 @@
         </div>
     </div>
 
+<?php 
+// Include sticky bottom menu only on front page
+get_template_part('template-parts/sticky-bottom-menu');
+?>
+
 <?php get_footer(); ?>

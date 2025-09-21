@@ -338,3 +338,24 @@ h2 {
 .wp-block-buttons .is-style-lsmonesports-button {
   @apply flex-auto lg:flex-none;
 }
+
+/* Sticky Bottom Menu Styles */
+.home .site-content {
+  @apply pb-20; /* Add bottom padding to prevent content overlap with sticky menu */
+}
+
+.sticky-bottom-menu {
+  @apply fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg;
+}
+
+.sticky-bottom-menu .menu-item {
+  @apply flex flex-col items-center justify-center p-2 hover:bg-gray-50 rounded-lg transition-colors duration-200;
+}
+
+.sticky-bottom-menu .menu-icon {
+  @apply w-8 h-8 mb-1 flex items-center justify-center rounded-full;
+}
+
+.sticky-bottom-menu .menu-label {
+  @apply text-xs text-gray-600 font-medium;
+}

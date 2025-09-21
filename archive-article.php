@@ -24,10 +24,10 @@ get_header();
                             </p>
                             <div class="space-y-12"></div>
                             <div class="flex-row items-center justify-stretch mt-6">
-                                <a href="#promotion-list" class="inline-block px-6 py-3 bg-gradient-to-b from-[#FFC900] to-[#F89939] text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                <a href="https://play.lsm-onesports.info/register?partner=103" class="inline-block px-6 py-3 bg-gradient-to-b from-[#FFC900] to-[#F89939] text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
                                         สมัครสมาชิก
                                 </a>
-                                <a href="#promotion-list" class="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                <a href="/login" class="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
                                         เข้าสู่ระบบ
                                 </a>
                             </div>
@@ -52,13 +52,13 @@ get_header();
                         
                         <?php if (has_post_thumbnail()) : ?>
                             <div class="aspect-w-16 aspect-h-9">
-                                <a href="<?php the_permalink(); ?>" class="block">
-                                    <?php the_post_thumbnail('lsm-hero', array('class' => 'w-full h-64 object-cover')); ?>
+                                <a href="<?php the_permalink(); ?>" class="block h-fit">
+                                    <?php the_post_thumbnail('lsm-hero', array('class' => 'w-full h-fit object-cover')); ?>
                                 </a>
                             </div>
                         <?php endif; ?>
                         
-                        <div class="p-6">
+                        <div class="p-6 mt-8">
                             <header class="entry-header mb-4">
                                 <?php
                                 the_title('<h2 class="entry-title text-2xl font-bold text-gray-900 mb-3"><a href="' . esc_url(get_permalink()) . '" class="hover:text-blue-600 transition-colors duration-200">', '</a></h2>');

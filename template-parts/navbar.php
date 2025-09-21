@@ -31,7 +31,7 @@
                 ));
                 ?>
                     <div>
-                        <a href="play.lsm-onesports.info/register?partner=103" class="px-12 text-base bg-gradient-to-b from-[#FFC900] to-[#F89939] text-white font-semibold py-2 rounded-md hover:bg-[#FDB714] transition-colors duration-200">
+                        <a href="https://play.lsm-onesports.info/register?partner=103" class="px-12 text-base bg-gradient-to-b from-[#FFC900] to-[#F89939] text-white font-semibold py-2 rounded-md hover:bg-[#FDB714] transition-colors duration-200">
                             สมัครสมาชิก
                         </a>
                     </div>

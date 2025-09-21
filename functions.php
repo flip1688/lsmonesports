@@ -557,6 +557,122 @@ function lsm_sports_register_custom_taxonomies() {
 }
 add_action('init', 'lsm_sports_register_custom_taxonomies', 0);
 
+// Add admin menu for theme settings
+function onesports_admin_menu() {
+    add_options_page(
+        __( 'OneSports Settings', 'lsm-sports' ),
+        __( 'OneSports Settings', 'lsm-sports' ),
+        'manage_options',
+        'onesports-settings',
+        'onesports_settings_page'
+    );
+}
+add_action( 'admin_menu', 'onesports_admin_menu' );
+
+function onesports_settings_init() {
+    // Production-safe checks
+    if ( ! function_exists( 'is_admin' ) || ! is_admin() ) {
+        return;
+    }
+
+    if ( ! function_exists( 'register_setting' ) || ! function_exists( 'add_settings_section' ) || ! function_exists( 'add_settings_field' ) ) {
+        return;
+    }
+
+    // Wrap in try-catch for production safety
+    try {
+        register_setting( 'onesports_settings', 'onesports_api_url' );
+        register_setting( 'onesports_settings', 'onesports_subdomain' );
+        register_setting( 'onesports_settings', 'onesports_login_url' );
+
+        add_settings_section(
+            'onesports_settings_section',
+            __( 'API Configuration', 'lsm-sports' ),
+            'onesports_settings_section_callback',
+            'onesports_settings'
+        );
+
+        add_settings_field(
+            'onesports_api_url',
+            __( 'API URL', 'lsm-sports' ),
+            'onesports_api_url_render',
+            'onesports_settings',
+            'onesports_settings_section'
+        );
+
+        add_settings_field(
+            'onesports_subdomain',
+            __( 'Subdomain', 'lsm-sports' ),
+            'onesports_subdomain_render',
+            'onesports_settings',
+            'onesports_settings_section'
+        );
+
+        add_settings_field(
+            'onesports_login_url',
+            __( 'Login Redirect URL', 'lsm-sports' ),
+            'onesports_login_url_render',
+            'onesports_settings',
+            'onesports_settings_section'
+        );
+    } catch ( Exception $e ) {
+        // Silently fail in production to prevent 502 errors
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'ONESPORTS Settings Error: ' . $e->getMessage() );
+        }
+    }
+}
+add_action( 'admin_init', 'onesports_settings_init' );
+
+// Settings page display function
+function onesports_settings_page() {
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+        <form action="options.php" method="post">
+            <?php
+            settings_fields( 'onesports_settings' );
+            do_settings_sections( 'onesports_settings' );
+            submit_button( __( 'Save Settings', 'lsm-sports' ) );
+            ?>
+        </form>
+    </div>
+    <?php
+}
+
+// Settings section callback
+function onesports_settings_section_callback() {
+    echo '<p>' . __( 'Configure the API settings for OneSports theme.', 'lsm-sports' ) . '</p>';
+}
+
+// API URL field render
+function onesports_api_url_render() {
+    $value = get_option( 'onesports_api_url', '' );
+    ?>
+    <input type="url" name="onesports_api_url" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+    <p class="description"><?php _e( 'Enter the API URL for the OneSports platform.', 'lsm-sports' ); ?></p>
+    <?php
+}
+
+// Subdomain field render
+function onesports_subdomain_render() {
+    $value = get_option( 'onesports_subdomain', '' );
+    ?>
+    <input type="text" name="onesports_subdomain" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+    <p class="description"><?php _e( 'Enter the subdomain for the OneSports platform.', 'lsm-sports' ); ?></p>
+    <?php
+}
+
+// Login URL field render
+function onesports_login_url_render() {
+    $value = get_option( 'onesports_login_url', '' );
+    ?>
+    <input type="url" name="onesports_login_url" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+    <p class="description"><?php _e( 'Enter the login redirect URL for the OneSports platform.', 'lsm-sports' ); ?></p>
+    <?php
+}
+
+
 /**
  * Flush rewrite rules on theme activation
  */
@@ -581,6 +697,8 @@ function lsm_sports_deactivation() {
     flush_rewrite_rules();
 }
 add_action('switch_theme', 'lsm_sports_deactivation');
+
+
 
 /**
  * Temporary function to flush rewrite rules - call this once after adding custom post types

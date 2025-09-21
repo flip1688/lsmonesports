@@ -5,7 +5,7 @@
 
 ?>
 
-    <footer id="colophon" class="site-footer bg-gray-900 text-white mt-12">
+    <footer id="colophon" class="site-footer bg-gray-900 text-white">
         <div class="container mx-auto px-4 py-12">
             <?php if (is_active_sidebar('footer-1') || is_active_sidebar('footer-2') || is_active_sidebar('footer-3') || is_active_sidebar('footer-4')) : ?>
                 <div class="footer-widgets grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
