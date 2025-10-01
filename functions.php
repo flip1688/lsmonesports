@@ -586,6 +586,7 @@ function onesports_settings_init() {
         register_setting( 'onesports_settings', 'onesports_login_url' );
         register_setting( 'onesports_settings', 'onesports_partner_code' );
         register_setting( 'onesports_settings', 'onesports_partner_channel' );
+        register_setting( 'onesports_settings', 'onesports_line_contact_url' );
 
         add_settings_section(
             'onesports_settings_section',
@@ -630,6 +631,14 @@ function onesports_settings_init() {
             'onesports_partner_channel',
             __( 'Partner Channel', 'lsm-sports' ),
             'onesports_partner_channel_render',
+            'onesports_settings',
+            'onesports_settings_section'
+        );
+
+        add_settings_field(
+            'onesports_line_contact_url',
+            __( 'LINE Contact URL', 'lsm-sports' ),
+            'onesports_line_contact_url_render',
             'onesports_settings',
             'onesports_settings_section'
         );
@@ -705,6 +714,15 @@ function onesports_partner_channel_render() {
     ?>
     <input type="text" name="onesports_partner_channel" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
     <p class="description"><?php _e( 'Enter the partner channel for registration.', 'lsm-sports' ); ?></p>
+    <?php
+}
+
+// LINE Contact URL field render
+function onesports_line_contact_url_render() {
+    $value = get_option( 'onesports_line_contact_url', '' );
+    ?>
+    <input type="url" name="onesports_line_contact_url" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+    <p class="description"><?php _e( 'Enter the LINE contact URL (e.g., https://line.me/ti/p/~yourlineid or https://lin.ee/yourcode).', 'lsm-sports' ); ?></p>
     <?php
 }
 
