@@ -11,7 +11,7 @@ get_header();
 <main id="primary" class="site-main min-h-screen">
     <div class="w-full mx-auto ">
         <div class="page-header w-full">
-            <div class="relative min-h-fit text-center bg-fixed bg-no-repeat"  style="background-image: url('<?php echo get_template_directory_uri(); ?>/src/img/article-heading.png'); background-size: auto 100%;">
+            <div class="relative min-h-fit text-center bg-fixed bg-no-repeat"  style="background-image: url('<?php echo get_template_directory_uri(); ?>/src/img/article-heading.png'); background-size: 100% auto;">
                 <div class="max-w-7xl mx-auto pt-24 pb-16">
                     <div class="flex justify-center items-center md:justify-start md:items-start mb-8">
                         <div class="flex flex-col items-center justify-center">
