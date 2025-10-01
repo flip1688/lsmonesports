@@ -3,6 +3,7 @@
     <div id="content" class="site-content relative">
         <div class="">
             <main id="primary" class="site-main w-full">
+                <?php get_template_part('template-parts/register-form'); ?>
              <?php if ( have_posts() ) : ?>
                  <?php while ( have_posts() ) : the_post(); ?>
             <article class="">

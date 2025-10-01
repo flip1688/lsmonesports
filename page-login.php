@@ -60,7 +60,7 @@
                     </div>
 
                     <!-- Register Link -->
-                    <a href="https://play.lsm-onesports.info/register?partner=103" 
+                    <a href="/register" 
                        class="block w-full text-center bg-[#006EEB]  text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
                         สมัครสมาชิก
                     </a>
@@ -90,6 +90,57 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('login-form');
     const messagesDiv = document.getElementById('form-messages');
+    const apiUrl = '<?php echo get_option('onesports_api_url', ''); ?>';
+    const loginUrl = '<?php echo get_option('onesports_login_url', ''); ?>';
+
+    // Check if user is already logged in
+    checkExistingToken();
+
+    async function checkExistingToken() {
+        const token = localStorage.getItem('token');
+        
+        if (token) {
+            try {
+                const userInfo = await getUserInfo(token);
+                
+                if (userInfo) {
+                    // User is already logged in, redirect
+                    if (loginUrl) {
+                        const separator = loginUrl.includes('?') ? '&' : '?';
+                        window.location.replace(loginUrl + separator + 'token=' + encodeURIComponent(token));
+                    } else {
+                        window.location.replace('<?php echo esc_url(home_url('/')); ?>');
+                    }
+                }
+            } catch (error) {
+                // Token is invalid or expired, remove it
+                localStorage.removeItem('token');
+                console.log('Token validation failed, showing login form');
+            }
+        }
+    }
+
+    async function getUserInfo(token) {
+        if (!apiUrl) {
+            throw new Error('API URL not configured');
+        }
+
+        const response = await fetch(`${apiUrl}/api/member/auth/user`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.data) {
+            return data.data;
+        } else {
+            throw new Error('Invalid token');
+        }
+    }
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -123,12 +174,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 setTimeout(() => {
                     if (loginUrl) {
-                        // Redirect to configured URL with token parameter
+                        // Redirect to configured URL with token parameter (replace history entry)
                         const separator = loginUrl.includes('?') ? '&' : '?';
-                        window.location.href = loginUrl + separator + 'token=' + encodeURIComponent(token);
+                        window.location.replace(loginUrl + separator + 'token=' + encodeURIComponent(token));
                     } else {
-                        // Fallback to home page if no login URL configured
-                        window.location.href = '<?php echo esc_url( home_url( '/' ) ); ?>';
+                        // Fallback to home page if no login URL configured (replace history entry)
+                        window.location.replace('<?php echo esc_url( home_url( '/' ) ); ?>');
                     }
                 }, 2000);
             })
@@ -155,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Login function using external API
     function login(username, password) {
-        const apiUrl = '<?php echo get_option('onesports_api_url', ''); ?>';
         const subdomain = '<?php echo get_option('onesports_subdomain', 'lsmdemo1'); ?>';
         
         if (!apiUrl) {

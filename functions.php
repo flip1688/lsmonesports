@@ -584,6 +584,8 @@ function onesports_settings_init() {
         register_setting( 'onesports_settings', 'onesports_api_url' );
         register_setting( 'onesports_settings', 'onesports_subdomain' );
         register_setting( 'onesports_settings', 'onesports_login_url' );
+        register_setting( 'onesports_settings', 'onesports_partner_code' );
+        register_setting( 'onesports_settings', 'onesports_partner_channel' );
 
         add_settings_section(
             'onesports_settings_section',
@@ -612,6 +614,22 @@ function onesports_settings_init() {
             'onesports_login_url',
             __( 'Login Redirect URL', 'lsm-sports' ),
             'onesports_login_url_render',
+            'onesports_settings',
+            'onesports_settings_section'
+        );
+
+        add_settings_field(
+            'onesports_partner_code',
+            __( 'Partner Code', 'lsm-sports' ),
+            'onesports_partner_code_render',
+            'onesports_settings',
+            'onesports_settings_section'
+        );
+
+        add_settings_field(
+            'onesports_partner_channel',
+            __( 'Partner Channel', 'lsm-sports' ),
+            'onesports_partner_channel_render',
             'onesports_settings',
             'onesports_settings_section'
         );
@@ -672,6 +690,24 @@ function onesports_login_url_render() {
     <?php
 }
 
+// Partner Code field render
+function onesports_partner_code_render() {
+    $value = get_option( 'onesports_partner_code', '' );
+    ?>
+    <input type="text" name="onesports_partner_code" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+    <p class="description"><?php _e( 'Enter the partner code for registration.', 'lsm-sports' ); ?></p>
+    <?php
+}
+
+// Partner Channel field render
+function onesports_partner_channel_render() {
+    $value = get_option( 'onesports_partner_channel', '' );
+    ?>
+    <input type="text" name="onesports_partner_channel" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
+    <p class="description"><?php _e( 'Enter the partner channel for registration.', 'lsm-sports' ); ?></p>
+    <?php
+}
+
 
 /**
  * Flush rewrite rules on theme activation
@@ -713,3 +749,181 @@ function lsm_sports_flush_rewrite_rules_once() {
     }
 }
 add_action('init', 'lsm_sports_flush_rewrite_rules_once', 999);
+
+/**
+ * Get banks data from API
+ * Fetches bank list from external API with caching
+ */
+function get_banks_data() {
+    // Check for cached data first (cache for 1 hour)
+    $cache_key = 'lsmonesports_banks_data';
+    $cached_banks = get_transient($cache_key);
+    
+    if ($cached_banks !== false) {
+        return $cached_banks;
+    }
+    
+    // Fetch from API
+    $api_url = 'https://api.mclsm.com/api/member/banks';
+    $response = wp_remote_get($api_url, array(
+        'timeout' => 15,
+        'headers' => array(
+            'Content-Type' => 'application/json',
+        )
+    ));
+    
+    // Check for errors
+    if (is_wp_error($response)) {
+        error_log('LSM OneSports: Failed to fetch banks data - ' . $response->get_error_message());
+        return get_fallback_banks_data();
+    }
+    
+    $response_code = wp_remote_retrieve_response_code($response);
+    if ($response_code !== 200) {
+        error_log('LSM OneSports: Banks API returned status code: ' . $response_code);
+        return get_fallback_banks_data();
+    }
+    
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+    
+    // Check if data is valid
+    if (!$data || !isset($data['data']) || !is_array($data['data'])) {
+        error_log('LSM OneSports: Invalid banks data format received');
+        return get_fallback_banks_data();
+    }
+    
+    // Process the bank data
+    $banks = array();
+    foreach ($data['data'] as $bank) {
+        if (isset($bank['id']) && isset($bank['name'])) {
+            $banks[] = array(
+                'id' => intval($bank['id']),
+                'name' => sanitize_text_field($bank['name']),
+                'logo' => isset($bank['logo']) ? sanitize_text_field($bank['logo']) : 'default.png',
+                'code' => isset($bank['code']) ? sanitize_text_field($bank['code']) : '',
+                'status' => isset($bank['status']) ? intval($bank['status']) : 1
+            );
+        }
+    }
+    
+    // Cache the data for 1 hour
+    if (!empty($banks)) {
+        set_transient($cache_key, $banks, HOUR_IN_SECONDS);
+    }
+    
+    return $banks;
+}
+
+/**
+ * Get fallback banks data when API is unavailable
+ */
+function get_fallback_banks_data() {
+    return array(
+        array(
+            'id' => 1,
+            'name' => 'ธนาคารกรุงเทพ',
+            'logo' => 'bbl.png',
+            'code' => 'BBL',
+            'status' => 1
+        ),
+        array(
+            'id' => 2,
+            'name' => 'ธนาคารกสิกรไทย',
+            'logo' => 'kbank.png',
+            'code' => 'KBANK',
+            'status' => 1
+        ),
+        array(
+            'id' => 3,
+            'name' => 'ธนาคารไทยพาณิชย์',
+            'logo' => 'scb.png',
+            'code' => 'SCB',
+            'status' => 1
+        ),
+        array(
+            'id' => 4,
+            'name' => 'ธนาคารกรุงไทย',
+            'logo' => 'ktb.png',
+            'code' => 'KTB',
+            'status' => 1
+        ),
+        array(
+            'id' => 5,
+            'name' => 'ธนาคารทหารไทยธนชาต',
+            'logo' => 'ttb.png',
+            'code' => 'TTB',
+            'status' => 1
+        ),
+        array(
+            'id' => 6,
+            'name' => 'ธนาคารกรุงศรีอยุธยา',
+            'logo' => 'bay.png',
+            'code' => 'BAY',
+            'status' => 1
+        ),
+        array(
+            'id' => 7,
+            'name' => 'ธนาคารออมสิน',
+            'logo' => 'gsb.png',
+            'code' => 'GSB',
+            'status' => 1
+        ),
+        array(
+            'id' => 8,
+            'name' => 'ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร',
+            'logo' => 'baac.png',
+            'code' => 'BAAC',
+            'status' => 1
+        ),
+        array(
+            'id' => 9,
+            'name' => 'ธนาคารเกียรตินาคินภัทร',
+            'logo' => 'kk.png',
+            'code' => 'KK',
+            'status' => 1
+        ),
+        array(
+            'id' => 10,
+            'name' => 'ธนาคารซีไอเอ็มบีไทย',
+            'logo' => 'cimb.png',
+            'code' => 'CIMB',
+            'status' => 1
+        ),
+        array(
+            'id' => 11,
+            'name' => 'ธนาคารทิสโก้',
+            'logo' => 'tisco.png',
+            'code' => 'TISCO',
+            'status' => 1
+        ),
+        array(
+            'id' => 12,
+            'name' => 'ธนาคารยูโอบี',
+            'logo' => 'uob.png',
+            'code' => 'UOB',
+            'status' => 1
+        ),
+        array(
+            'id' => 13,
+            'name' => 'ธนาคารแลนด์ แอนด์ เฮ้าส์',
+            'logo' => 'lhb.png',
+            'code' => 'LHB',
+            'status' => 1
+        ),
+        array(
+            'id' => 14,
+            'name' => 'ธนาคารไอซีบีซี (ไทย)',
+            'logo' => 'icbc.png',
+            'code' => 'ICBC',
+            'status' => 1
+        )
+    );
+}
+
+/**
+ * Clear banks cache (useful for admin or debugging)
+ */
+function clear_banks_cache() {
+    delete_transient('lsmonesports_banks_data');
+}
